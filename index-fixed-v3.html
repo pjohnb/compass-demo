@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>xFormative | COMPASS™ - Patent-Pending Seed Investment Opportunity</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #000000;
+            --navy-light: #111111;
+            --gold: #c9a227;
+            --gold-light: #e8c547;
+            --cream: #f8f6f0;
+            --cream-dark: #e8e4d8;
+            --text-dark: #1a1a1a;
+            --text-muted: #5a6370;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background: var(--navy);
+            color: var(--cream);
+            line-height: 1.7;
+        }
+
+        /* Header */
+        header {
+            background: var(--navy);
+            padding: 0.7rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(201, 162, 39, 0.2);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-container img {
+            height: 40px;
+            width: auto;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--cream);
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 0.95rem;
+            letter-spacing: 0.03em;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--gold);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            display: flex;
+            align-items: flex-start;
+            padding: 16rem 2rem 3.4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(201, 162, 39, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(201, 162, 39, 0.05) 0%, transparent 40%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .hero-logo {
+            margin-bottom: 4.25rem;
+            text-align: center;
+        }
+
+        .hero-logo img {
+            height: auto;
+            width: 100%;
+            max-width: 450px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(201, 162, 39, 0.15);
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 0.5rem 1.25rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            color: var(--cream);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            max-width: 900px;
+        }
+
+        .hero h1 .highlight {
+            color: var(--gold);
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: rgba(248, 246, 240, 0.85);
+            max-width: 700px;
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+
+        .btn-primary {
+            background: var(--gold);
+            color: var(--navy);
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.03em;
+        }
+
+        .btn-primary:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(201, 162, 39, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--cream);
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border: 1px solid rgba(248, 246, 240, 0.4);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.03em;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(248, 246, 240, 0.1);
+            justify-content: center;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: rgba(248, 246, 240, 0.7);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* Content Sections */
+        section {
+            padding: 6rem 2rem;
+        }
+
+        .section-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            color: var(--cream);
+            margin-bottom: 1.5rem;
+            line-height: 1.3;
+        }
+
+        .lead-text {
+            font-size: 1.25rem;
+            color: rgba(248, 246, 240, 0.8);
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            color: rgba(248, 246, 240, 0.9);
+        }
+
+        /* Problem Section */
+        .problem-section {
+            background: var(--navy-light);
+        }
+
+        .problem-quote {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-style: italic;
+            color: var(--gold);
+            border-left: 3px solid var(--gold);
+            padding-left: 1.5rem;
+            margin: 2.5rem 0;
+        }
+
+        /* Solution Section */
+        .solution-section {
+            background: var(--navy);
+        }
+
+        .compass-definition {
+            background: var(--navy-light);
+            padding: 2.5rem;
+            margin: 2rem 0;
+            border-left: 4px solid var(--gold);
+        }
+
+        .compass-definition h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .power-statement {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--cream);
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(201, 162, 39, 0.1);
+            border-left: 4px solid var(--gold);
+        }
+
+        /* How Section */
+        .how-section {
+            background: var(--navy-light);
+        }
+
+        .principles-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+        }
+
+        .principles-table th,
+        .principles-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(201, 162, 39, 0.2);
+        }
+
+        .principles-table th {
+            font-weight: 600;
+            color: var(--gold);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .principles-table td:first-child {
+            font-weight: 600;
+            color: var(--cream);
+            width: 30%;
+        }
+
+        .principles-table td:last-child {
+            color: rgba(248, 246, 240, 0.8);
+        }
+
+        .bottom-line {
+            background: var(--navy);
+            padding: 2rem;
+            margin-top: 2rem;
+            text-align: center;
+            border: 1px solid rgba(201, 162, 39, 0.3);
+        }
+
+        .bottom-line p {
+            font-size: 1.1rem;
+            color: var(--cream);
+            margin-bottom: 0.5rem;
+        }
+
+        .bottom-line p:last-child {
+            color: rgba(248, 246, 240, 0.7);
+            margin-bottom: 0;
+        }
+
+        /* Traction Section */
+        .traction-section {
+            background: var(--navy);
+        }
+
+        .traction-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .traction-item {
+            background: var(--navy-light);
+            padding: 1.5rem;
+            border: 1px solid rgba(201, 162, 39, 0.2);
+        }
+
+        .traction-item .check {
+            color: var(--gold);
+            font-size: 1.2rem;
+            margin-right: 0.5rem;
+        }
+
+        .traction-item h4 {
+            color: var(--cream);
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .traction-item p {
+            font-size: 0.9rem;
+            margin-bottom: 0;
+            color: rgba(248, 246, 240, 0.7);
+        }
+
+        /* Form Section */
+        .form-section {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            padding: 6rem 2rem;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(248, 246, 240, 0.03);
+            border: 1px solid rgba(201, 162, 39, 0.2);
+            padding: 3rem;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .form-header h2 {
+            margin-bottom: 0.5rem;
+        }
+
+        .form-header p {
+            color: rgba(248, 246, 240, 0.6);
+            margin-bottom: 0;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+            color: var(--cream);
+        }
+
+        label .optional {
+            font-weight: 400;
+            color: rgba(248, 246, 240, 0.5);
+            font-size: 0.85rem;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            font-size: 1rem;
+            font-family: 'Source Sans Pro', sans-serif;
+            border: 1px solid rgba(248, 246, 240, 0.2);
+            background: rgba(248, 246, 240, 0.05);
+            color: var(--cream);
+            transition: all 0.3s ease;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--gold);
+            background: rgba(248, 246, 240, 0.08);
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: rgba(248, 246, 240, 0.4);
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23c9a227' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+        }
+
+        select option {
+            background: var(--navy);
+            color: var(--cream);
+            padding: 0.5rem;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            margin-top: 0.25rem;
+            accent-color: var(--gold);
+        }
+
+        .checkbox-group label {
+            font-size: 0.9rem;
+            font-weight: 400;
+            line-height: 1.5;
+            margin-bottom: 0;
+        }
+
+        .nda-notice {
+            font-size: 0.85rem;
+            color: rgba(248, 246, 240, 0.6);
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(201, 162, 39, 0.08);
+            border-left: 2px solid var(--gold);
+        }
+
+        .form-submit {
+            margin-top: 2rem;
+        }
+
+        .form-submit button {
+            width: 100%;
+            padding: 1.25rem;
+            font-size: 1.1rem;
+        }
+
+        .form-success {
+            display: none;
+            text-align: center;
+            padding: 3rem;
+        }
+
+        .form-success.show {
+            display: block;
+        }
+
+        .form-success h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-success p {
+            color: rgba(248, 246, 240, 0.8);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--navy);
+            color: rgba(248, 246, 240, 0.6);
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(201, 162, 39, 0.2);
+        }
+
+        footer p {
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        footer a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 0.3rem;
+            }
+
+            header {
+                padding: 0.5rem 1rem;
+            }
+
+            .logo-container {
+                text-align: center;
+            }
+
+            .logo-container img {
+                height: auto;
+                width: 200px;
+                max-width: 90vw;
+            }
+
+            nav {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.5rem;
+            }
+
+            nav a {
+                margin: 0;
+                font-size: 0.85rem;
+            }
+
+            .hero-logo {
+                display: none;
+            }
+
+            .hero {
+                padding-top: 11rem;
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                text-align: center;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .form-container {
+                padding: 2rem 1.5rem;
+            }
+
+            .section-content {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            .badge {
+                font-size: 0.7rem;
+                padding: 0.4rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <nav>
+                <a href="#problem">The Problem</a>
+                <a href="#solution">The Solution</a>
+                <a href="#how">How It Works</a>
+                <a href="#traction">The Traction</a>
+                <a href="#request">Get Pitch Deck</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-logo">
+                <img src="logo-white.png" alt="xFormative">
+            </div>
+            <div class="badge">Patent-Pending Seed Investment Opportunity</div>
+            <h1>Deploy Business Automation in Days. <span class="highlight">Not Months. Not Years.</span></h1>
+            <p class="hero-subtitle">The $200B automation industry has a problem. You pay consultants to draw boxes for a year. Specs never survive implementation. 70% of digital transformation projects fail. <strong>COMPASS™ changes the game.</strong></p>
+            <div class="hero-cta">
+                <a href="#request" class="btn-primary">Request White Paper & Pitch Deck</a>
+                <a href="#solution" class="btn-secondary">Learn More</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-number">Q1 2026</div>
+                    <div class="stat-label">Demo Available</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">25+</div>
+                    <div class="stat-label">Years Perfecting</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">$3-5M</div>
+                    <div class="stat-label">Seed Round</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="problem" class="problem-section">
+        <div class="section-content">
+            <div class="section-label">The Market Problem</div>
+            <h2>The $52B Automation Gap</h2>
+            <p class="lead-text">Enterprise AI projects fail 70% of the time. Not because the technology doesn't work—because specs never survive implementation.</p>
+            <p>Requirements get lost in translation between business experts and developers. Months of coding. Millions in cost. And still not what you needed.</p>
+            <p><strong style="color: var(--gold);">COMPASS™ eliminates the gap.</strong></p>
+            <p>Like translating Spanish to English, COMPASS™ translates <em>English to Business</em>. Your Subject Matter Experts describe the process in plain English. COMPASS™ structures it, validates it, and deploys it—production-ready in days, not months. Compliance built-in.</p>
+            <p class="problem-quote">Your SMEs just say: "Hey COMPASS™, when a deal closes in Salesforce, create SharePoint folder, send DocuSign, start Asana onboarding, Slack the team, log to Snowflake." Tomorrow, it's live.</p>
+            <p>Not robotic process automation. <em>Intelligent</em> process automation. AI Agents execute and audit workflows across your infrastructure while your ops experts stay in control.</p>
+            <p><em style="color: var(--gold);">This is the iPhone moment for enterprise automation.</em></p>
+        </div>
+    </section>
+
+    <section id="solution" class="solution-section">
+        <div class="section-content">
+            <div class="section-label">The COMPASS™ Solution</div>
+            <h2>Critical Operations Mapping and Process Analysis System</h2>
+            <div class="compass-definition">
+                <h3>COMPASS™</h3>
+                <p>Maps your operations with surgical precision, embeds compliance and metrics by design, and systematically applies the best existing—and future—AI tools to every task.</p>
+            </div>
+            <p>Would you like to be an early investor in this certainly disruptive technology? Or do you simply want to know when COMPASS™ will be available for your organization's use? Either way, you're a winner.</p>
+            <p class="power-statement">For the first time, the people who run your processes can automate them. Themselves.</p>
+        </div>
+    </section>
+
+    <section id="how" class="how-section">
+        <div class="section-content">
+            <div class="section-label">How We Do It</div>
+            <h2>A Peek Behind the Curtain</h2>
+            
+            <h3 style="color: var(--gold); margin-top: 2rem; font-size: 1.1rem;">The Chomsky Insight</h3>
+            <p>In 1965, Noam Chomsky revolutionized linguistics with a discovery: all human languages—despite wildly different vocabularies and surface rules—share identical deep structure. A universal grammar hardwired into human cognition.</p>
+            <p><strong style="color: var(--cream);">COMPASS™ applies this principle to business operations.</strong></p>
+
+            <h3 style="color: var(--gold); margin-top: 2rem; font-size: 1.1rem;">Universal Process Grammar</h3>
+            <p>Every organization believes its processes are unique. Healthcare thinks it's different from finance. Government thinks it's different from manufacturing. <strong style="color: var(--cream);">They're wrong.</strong></p>
+            <p>Beneath the surface terminology, all processes share the same deep structure. We call this Universal Process Grammar (UPG)—the discovery that every business process, regardless of industry, conforms to six universal principles:</p>
+
+            <table class="principles-table">
+                <thead>
+                    <tr>
+                        <th>Principle</th>
+                        <th>What It Means</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Completeness</td>
+                        <td>Every process has a defined beginning, middle, and end</td>
+                    </tr>
+                    <tr>
+                        <td>Hierarchy</td>
+                        <td>Work organizes into nested levels (Pathway → Milestone → Job → Task → Step)</td>
+                    </tr>
+                    <tr>
+                        <td>Conditionality</td>
+                        <td>Variations branch based on specific variables</td>
+                    </tr>
+                    <tr>
+                        <td>Exception Handling</td>
+                        <td>Every process accounts for when things go wrong</td>
+                    </tr>
+                    <tr>
+                        <td>Actor Assignment</td>
+                        <td>Every action has a designated performer</td>
+                    </tr>
+                    <tr>
+                        <td>Nomenclature</td>
+                        <td>Consistent naming conventions across all process elements</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>This isn't theory. It's 25 years of proven methodology across banking, healthcare, and federal government—now embedded in AI.</p>
+
+            <h3 style="color: var(--gold); margin-top: 2rem; font-size: 1.1rem;">Why This Matters</h3>
+            <p><strong style="color: var(--cream);">Surface structure</strong> varies by domain: Healthcare says "Verify Insurance Eligibility." Finance says "Validate Account Status." Government says "Confirm Benefit Eligibility."</p>
+            <p><strong style="color: var(--cream);">Deep structure</strong> is identical: Access system → Query with identifier → Validate response → Record result → Handle exceptions.</p>
+            <p>COMPASS™ captures the deep structure. When your SME describes "how we verify insurance," COMPASS™ recognizes the universal pattern beneath the domain-specific language.</p>
+
+            <div class="bottom-line">
+                <p><strong>Other platforms document what you describe.</strong></p>
+                <p>COMPASS™ knows what <em>should</em> be there.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="traction" class="traction-section">
+        <div class="section-content">
+            <div class="section-label">What We've Already Built</div>
+            <h2>De-Risked Investment</h2>
+            <p class="lead-text">Most seed rounds fund proof of concept. We're past concept—we're hardening and scaling.</p>
+
+            <div class="traction-grid">
+                <div class="traction-item">
+                    <h4><span class="check">✓</span> August 2025</h4>
+                    <p>Methodology validated: 116 tasks captured across 8 milestones in one hour</p>
+                </div>
+                <div class="traction-item">
+                    <h4><span class="check">✓</span> December 2025</h4>
+                    <p>Design Mode prototype operational — AI-powered, verified</p>
+                </div>
+                <div class="traction-item">
+                    <h4><span class="check">✓</span> Multi-Agent System</h4>
+                    <p>AI system functional with UPG validation automated</p>
+                </div>
+                <div class="traction-item">
+                    <h4><span class="check">✓</span> Patent-Pending</h4>
+                    <p>Universal Process Grammar IP protection filed</p>
+                </div>
+            </div>
+
+            <p style="margin-top: 2rem;"><strong style="color: var(--cream);">Technical Risk: Substantially Reduced.</strong> Design Mode prototype proves AI interpretation works. Execute Mode architecture validated by prototype success.</p>
+
+            <p>xFormative will be demoing our technology in Q1 2026. Provide your details and we will keep you posted on availability.</p>
+        </div>
+    </section>
+
+    <section id="request" class="form-section">
+        <div class="section-content">
+            <div class="form-container">
+                <div class="form-header">
+                    <h2>Request White Paper & Pitch Deck</h2>
+                    <p>Receive updates, White Paper, and Pitch Deck</p>
+                </div>
+
+                <form id="prospectusForm" action="https://formspree.io/f/xpqwngln" method="POST">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" name="firstName" required placeholder="John">
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" name="lastName" required placeholder="Smith">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="company">Company Name <span class="optional">(optional)</span></label>
+                        <input type="text" id="company" name="company" placeholder="Acme Ventures">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required placeholder="john@example.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number <span class="optional">(optional)</span></label>
+                        <input type="tel" id="phone" name="phone" placeholder="(555) 123-4567">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="interest">I'm interested as... <span class="optional">(optional)</span></label>
+                        <select id="interest" name="interest">
+                            <option value="">Select one...</option>
+                            <option value="investor">Potential Investor</option>
+                            <option value="customer">Potential Customer</option>
+                            <option value="both">Both</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message <span class="optional">(optional)</span></label>
+                        <textarea id="message" name="message" placeholder="Tell us about your interest in COMPASS™..."></textarea>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="consent" name="consent" required>
+                        <label for="consent">I accept that the above information will be used to subscribe me to updates about xFormative and COMPASS™.</label>
+                    </div>
+
+                    <div class="form-submit">
+                        <button type="submit" class="btn-primary">Request White Paper & Pitch Deck</button>
+                    </div>
+                </form>
+
+                <div class="form-success" id="formSuccess">
+                    <h3>Thanks!</h3>
+                    <p>The form was submitted successfully.</p>
+                    <a href="#request" class="go-back" id="goBackLink" style="color: var(--gold); text-decoration: underline; cursor: pointer; display: inline-block; margin-top: 1rem;">Go back</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 xFormative. All rights reserved.</p>
+        <p>COMPASS™ is a trademark of xFormative.</p>
+        <p>Questions? <a href="/cdn-cgi/l/email-protection#751c1b131a350d131a071814011c03105b141c"><span class="__cf_email__" data-cfemail="046d6a626b447c626b766965706d72612a656d">[email&#160;protected]</span></a> | 602.816.5500</p>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // Form handling with Formspree
+        document.getElementById('prospectusForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const form = this;
+            const formData = new FormData(form);
+            
+            // Submit to Formspree
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Show success message
+                    form.style.display = 'none';
+                    document.getElementById('formSuccess').classList.add('show');
+                    // Reset form fields for when user clicks "Go back"
+                    form.reset();
+                } else {
+                    alert('There was a problem submitting the form. Please try again.');
+                }
+            })
+            .catch(error => {
+                alert('There was a problem submitting the form. Please try again.');
+            });
+        });
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Handle "Go back" link in success message
+        document.addEventListener('DOMContentLoaded', function() {
+            const goBackLink = document.getElementById('goBackLink');
+            if (goBackLink) {
+                goBackLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const form = document.getElementById('prospectusForm');
+                    const successMsg = document.getElementById('formSuccess');
+                    
+                    // Hide success message and show form
+                    successMsg.classList.remove('show');
+                    form.style.display = 'block';
+                });
+            }
+        });
+
+        // Header background on scr
