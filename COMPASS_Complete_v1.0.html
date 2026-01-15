@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COMPASS v1.0 - Complete Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideIn { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .fade-in { animation: fadeIn 0.3s ease-in; }
+        .slide-in { animation: slideIn 0.4s ease-out; }
+        .mode-card { transition: all 0.3s ease; }
+        .mode-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.15); }
+        .active-mode { border: 3px solid #3b82f6; background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); }
+        .thinking-dots::after {
+            content: '...';
+            animation: dots 1.5s steps(4, end) infinite;
+        }
+        @keyframes dots {
+            0%, 20% { content: '.'; }
+            40% { content: '..'; }
+            60%, 100% { content: '...'; }
+        }
+        .diagram-container { background: white; border: 2px solid #e5e7eb; border-radius: 8px; padding: 20px; margin: 20px 0; }
+        .tab-button { transition: all 0.2s; }
+        .tab-button.active { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-50 to-blue-50 min-h-screen">
+
+<div class="container mx-auto px-4 py-8 max-w-7xl">
+    
+    <!-- Header -->
+    <div class="text-center mb-12">
+        <h1 class="text-5xl font-bold mb-3 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            COMPASS v1.0
+        </h1>
+        <p class="text-xl text-gray-700 font-semibold">
+            The Operating System for Enterprise Agentic AI
+        </p>
+        <p class="text-gray-600 mt-2">
+            Release 1.0 (Unhardened) - Complete Process Intelligence Platform
+        </p>
+    </div>
+
+    <!-- Mode Selection -->
+    <div id="modeSelection" class="mb-8">
+        <h2 class="text-2xl font-bold text-gray-800 mb-4 text-center">Select Your Mode:</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            <!-- Mode 3: Document Ingestion -->
+            <div class="mode-card bg-white rounded-xl shadow-lg p-6 cursor-pointer border-2 border-gray-200" onclick="selectMode(3)">
+                <div class="text-4xl mb-3 text-center">📄</div>
+                <h3 class="text-xl font-bold text-gray-800 mb-2 text-center">Mode 3</h3>
+                <h4 class="text-lg font-semibold text-blue-600 mb-3 text-center">Document Ingestion</h4>
+                <p class="text-gray-600 text-sm mb-4">
+                    Upload existing documentation (chat transcripts, process docs, requirements). 
+                    AI extracts structure and generates visual diagrams.
+                </p>
+                <div class="bg-blue-50 rounded-lg p-3 text-sm">
+                    <div class="font-semibold text-blue-800 mb-1">Perfect for:</div>
+                    <ul class="text-blue-700 space-y-1">
+                        <li>• Existing system documentation</li>
+                        <li>• Chat transcript analysis</li>
+                        <li>• Fast process discovery</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Mode 1: Stage 1 Interview -->
+            <div class="mode-card bg-white rounded-xl shadow-lg p-6 cursor-pointer border-2 border-gray-200" onclick="selectMode(1)">
+                <div class="text-4xl mb-3 text-center">💬</div>
+                <h3 class="text-xl font-bold text-gray-800 mb-2 text-center">Mode 1</h3>
+                <h4 class="text-lg font-semibold text-green-600 mb-3 text-center">Stage 1 Interview</h4>
+                <p class="text-gray-600 text-sm mb-4">
+                    Live conversation with SME to extract high-level process structure: 
+                    Milestones, Jobs, Actors, and conditional flows.
+                </p>
+                <div class="bg-green-50 rounded-lg p-3 text-sm">
+                    <div class="font-semibold text-green-800 mb-1">Perfect for:</div>
+                    <ul class="text-green-700 space-y-1">
+                        <li>• New process documentation</li>
+                        <li>• SME-driven discovery</li>
+                        <li>• High-level mapping</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Mode 2: Stage 2 Interview -->
+            <div class="mode-card bg-white rounded-xl shadow-lg p-6 cursor-pointer border-2 border-gray-200" onclick="selectMode(2)">
+                <div class="text-4xl mb-3 text-center">🔍</div>
+                <h3 class="text-xl font-bold text-gray-800 mb-2 text-center">Mode 2</h3>
+                <h4 class="text-lg font-semibold text-purple-600 mb-3 text-center">Stage 2 Interview</h4>
+                <p class="text-gray-600 text-sm mb-4">
+                    Deep dive into each Job to extract Tasks, Steps, Actions, and Objects. 
+                    Builds complete Action-Object library.
+                </p>
+                <div class="bg-purple-50 rounded-lg p-3 text-sm">
+                    <div class="font-semibold text-purple-800 mb-1">Perfect for:</div>
+                    <ul class="text-purple-700 space-y-1">
+                        <li>• Detailed task analysis</li>
+                        <li>• Action-Object extraction</li>
+                        <li>• Executable definitions</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mode 3: Document Ingestion -->
+    <div id="mode3Container" class="hidden">
+        <div class="bg-white rounded-xl shadow-xl p-8 mb-8">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-3xl font-bold text-blue-600">📄 Mode 3: Document Ingestion & Analysis</h2>
+                <button onclick="backToModeSelection()" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg font-semibold">
+                    ← Back to Modes
+                </button>
+            </div>
+
+            <div class="bg-blue-50 border-2 border-blue-200 rounded-lg p-6 mb-6">
+                <p class="text-blue-900 font-semibold mb-2">
+                    Upload your existing documentation and watch COMPASS extract the complete process structure.
+                </p>
+                <p class="text-blue-800 text-sm">
+                    Supported: Text files (.txt), Markdown (.md), Word documents (.docx), Chat transcripts, Process documentation
+                </p>
+            </div>
+
+            <!-- File Upload -->
+            <div class="mb-6">
+                <label class="block text-lg font-bold text-gray-800 mb-3">Upload Documentation:</label>
+                <input type="file" id="documentUpload" accept=".txt,.md,.docx" 
+                       class="block w-full text-sm text-gray-600 file:mr-4 file:py-3 file:px-6 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer border-2 border-gray-300 rounded-lg p-2"/>
+                <p class="text-sm text-gray-500 mt-2">Or paste text directly below:</p>
+            </div>
+
+            <!-- Text Input -->
+            <div class="mb-6">
+                <label class="block text-lg font-bold text-gray-800 mb-3">Or Paste Documentation:</label>
+                <textarea id="documentText" rows="12" 
+                          class="w-full border-2 border-gray-300 rounded-lg p-4 font-mono text-sm"
+                          placeholder="Paste your process documentation, chat transcript, or requirements here..."></textarea>
+            </div>
+
+            <!-- Analyze Button -->
+            <div class="text-center mb-6">
+                <button onclick="analyzeDocument()" 
+                        class="px-8 py-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold text-lg rounded-lg hover:from-blue-600 hover:to-blue-700 shadow-lg">
+                    🔍 Analyze & Extract Structure
+                </button>
+            </div>
+
+            <!-- Analysis Status -->
+            <div id="analysisStatus" class="hidden mb-6">
+                <div class="bg-yellow-50 border-2 border-yellow-300 rounded-lg p-4">
+                    <div class="flex items-center">
+                        <div class="text-yellow-600 font-semibold mr-3">Analyzing document...</div>
+                        <div class="thinking-dots text-yellow-600"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results -->
+            <div id="analysisResults" class="hidden">
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">📊 Extracted Structure</h3>
+                
+                <!-- Tabs for different views -->
+                <div class="flex space-x-2 mb-4 border-b-2 border-gray-200">
+                    <button onclick="showTab('structure')" class="tab-button active px-6 py-3 font-semibold rounded-t-lg" id="structureTab">
+                        🏗️ Structure
+                    </button>
+                    <button onclick="showTab('flowchart')" class="tab-button px-6 py-3 font-semibold rounded-t-lg" id="flowchartTab">
+                        📊 Flowchart
+                    </button>
+                    <button onclick="showTab('entity')" class="tab-button px-6 py-3 font-semibold rounded-t-lg" id="entityTab">
+                        🗂️ Entity Diagram
+                    </button>
+                    <button onclick="showTab('dataflow')" class="tab-button px-6 py-3 font-semibold rounded-t-lg" id="dataflowTab">
+                        🔄 Data Flow
+                    </button>
+                    <button onclick="showTab('json')" class="tab-button px-6 py-3 font-semibold rounded-t-lg" id="jsonTab">
+                        📋 JSON Export
+                    </button>
+                </div>
+
+                <!-- Tab Content -->
+                <div id="structureContent" class="tab-content">
+                    <div id="structuredOutput" class="bg-gray-50 border-2 border-gray-300 rounded-lg p-6 font-mono text-sm"></div>
+                </div>
+
+                <div id="flowchartContent" class="tab-content hidden">
+                    <div class="diagram-container">
+                        <div id="flowchartDiagram" class="mermaid"></div>
+                    </div>
+                </div>
+
+                <div id="entityContent" class="tab-content hidden">
+                    <div class="diagram-container">
+                        <div id="entityDiagram" class="mermaid"></div>
+                    </div>
+                </div>
+
+                <div id="dataflowContent" class="tab-content hidden">
+                    <div class="diagram-container">
+                        <div id="dataflowDiagram" class="mermaid"></div>
+                    </div>
+                </div>
+
+                <div id="jsonContent" class="tab-content hidden">
+                    <div class="bg-gray-50 border-2 border-gray-300 rounded-lg p-6">
+                        <pre id="jsonOutput" class="text-sm overflow-auto"></pre>
+                    </div>
+                    <div class="text-center mt-4">
+                        <button onclick="downloadJSON()" class="px-6 py-3 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600">
+                            ⬇️ Download JSON
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mode 1: Stage 1 Interview -->
+    <div id="mode1Container" class="hidden">
+        <div class="bg-white rounded-xl shadow-xl p-8">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-3xl font-bold text-green-600">💬 Mode 1: Stage 1 Interview</h2>
+                <button onclick="backToModeSelection()" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg font-semibold">
+                    ← Back to Modes
+                </button>
+            </div>
+            <p class="text-gray-600 mb-6">
+                This mode will use the existing Stage 1 interview tool. <a href="#" class="text-blue-600 underline">Click here to launch</a> or use your existing Stage 1 HTML file.
+            </p>
+        </div>
+    </div>
+
+    <!-- Mode 2: Stage 2 Interview -->
+    <div id="mode2Container" class="hidden">
+        <div class="bg-white rounded-xl shadow-xl p-8">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-3xl font-bold text-purple-600">🔍 Mode 2: Stage 2 Interview</h2>
+                <button onclick="backToModeSelection()" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg font-semibold">
+                    ← Back to Modes
+                </button>
+            </div>
+            <p class="text-gray-600 mb-6">
+                This mode will use the existing Stage 2 interview tool. <a href="#" class="text-blue-600 underline">Click here to launch</a> or use your existing Stage 2 HTML file.
+            </p>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // Initialize Mermaid
+    mermaid.initialize({ 
+        startOnLoad: false,
+        theme: 'default',
+        flowchart: { useMaxWidth: true, htmlLabels: true }
+    });
+
+    let currentMode = null;
+    let extractedData = null;
+
+    // Mode Selection
+    function selectMode(mode) {
+        currentMode = mode;
+        document.getElementById('modeSelection').classList.add('hidden');
+        
+        if (mode === 1) {
+            document.getElementById('mode1Container').classList.remove('hidden');
+        } else if (mode === 2) {
+            document.getElementById('mode2Container').classList.remove('hidden');
+        } else if (mode === 3) {
+            document.getElementById('mode3Container').classList.remove('hidden');
+        }
+    }
+
+    function backToModeSelection() {
+        document.getElementById('mode1Container').classList.add('hidden');
+        document.getElementById('mode2Container').classList.add('hidden');
+        document.getElementById('mode3Container').classList.add('hidden');
+        document.getElementById('modeSelection').classList.remove('hidden');
+        currentMode = null;
+    }
+
+    // File Upload Handler
+    document.getElementById('documentUpload')?.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                document.getElementById('documentText').value = event.target.result;
+            };
+            reader.readAsText(file);
+        }
+    });
+
+    // Document Analysis
+    async function analyzeDocument() {
+        const documentText = document.getElementById('documentText').value.trim();
+        
+        if (!documentText) {
+            alert('Please upload a file or paste documentation first.');
+            return;
+        }
+
+        // Show status
+        document.getElementById('analysisStatus').classList.remove('hidden');
+        document.getElementById('analysisResults').classList.add('hidden');
+
+        try {
+            // Call Claude API
+            const response = await fetch('https://api.anthropic.com/v1/messages', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-api-key': localStorage.getItem('anthropic_api_key') || prompt('Enter your Anthropic API key:'),
+                    'anthropic-version': '2023-06-01'
+                },
+                body: JSON.stringify({
+                    model: 'claude-sonnet-4-20250514',
+                    max_tokens: 4000,
+                    messages: [{
+                        role: 'user',
+                        content: `You are COMPASS Document Analysis Agent. Analyze this process documentation and extract the structure into COMPASS 6-level hierarchy.
+
+Document to analyze:
+${documentText}
+
+Extract and return ONLY valid JSON (no markdown, no explanation) in this exact format:
+{
+  "pathway_name": "Process Name",
+  "phases": [
+    {
+      "phase_name": "Phase 1 Name",
+      "milestones": [
+        {
+          "milestone_name": "Milestone 1.1 Name",
+          "jobs": [
+            {
+              "job_name": "Job Name",
+              "actors": ["Actor1", "Actor2"],
+              "tasks": [
+                {
+                  "task_name": "Task Name",
+                  "action": "ACTION_VERB",
+                  "object": "Object_Name",
+                  "steps": ["Step 1", "Step 2"]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "name": "Object_Name",
+      "type": "data/document/system",
+      "description": "What it is"
+    }
+  ],
+  "data_flows": [
+    {
+      "from": "Source",
+      "to": "Destination",
+      "data": "What flows"
+    }
+  ]
+}
+
+Return ONLY the JSON, nothing else.`
+                    }]
+                })
+            });
+
+            const data = await response.json();
+            const content = data.content[0].text;
+            
+            // Parse JSON (remove markdown if present)
+            const jsonText = content.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+            extractedData = JSON.parse(jsonText);
+
+            // Store API key
+            const apiKey = response.headers.get('x-api-key') || localStorage.getItem('anthropic_api_key');
+            if (apiKey) localStorage.setItem('anthropic_api_key', apiKey);
+
+            // Display results
+            displayResults(extractedData);
+
+        } catch (error) {
+            console.error('Analysis error:', error);
+            alert('Error analyzing document. Check console for details.');
+            document.getElementById('analysisStatus').classList.add('hidden');
+        }
+    }
+
+    function displayResults(data) {
+        document.getElementById('analysisStatus').classList.add('hidden');
+        document.getElementById('analysisResults').classList.remove('hidden');
+
+        // Display structured output
+        displayStructuredOutput(data);
+
+        // Generate diagrams
+        generateFlowchart(data);
+        generateEntityDiagram(data);
+        generateDataFlowDiagram(data);
+
+        // Display JSON
+        document.getElementById('jsonOutput').textContent = JSON.stringify(data, null, 2);
+    }
+
+    function displayStructuredOutput(data) {
+        let html = '';
+        html += `<div class="mb-4"><span class="text-purple-700 font-bold text-lg">PATHWAY:</span> <span class="text-purple-900 font-bold text-lg">${data.pathway_name}</span></div>\n\n`;
+        
+        data.phases.forEach((phase, pi) => {
+            html += `<div class="mb-4"><span class="text-blue-700 font-bold">PHASE ${pi + 1}:</span> <span class="text-blue-900 font-semibold">${phase.phase_name}</span></div>\n`;
+            
+            phase.milestones.forEach((milestone, mi) => {
+                html += `<div class="ml-4 mb-3"><span class="text-blue-600 font-semibold">MILESTONE ${pi + 1}.${mi + 1}:</span> ${milestone.milestone_name}</div>\n`;
+                
+                milestone.jobs.forEach((job, ji) => {
+                    html += `<div class="ml-8 mb-2"><span class="text-blue-600">JOB ${pi + 1}.${mi + 1}.${ji + 1}:</span> ${job.job_name}</div>\n`;
+                    html += `<div class="ml-12 text-sm text-gray-600">Actors: ${job.actors.join(', ')}</div>\n`;
+                    
+                    if (job.tasks) {
+                        job.tasks.forEach((task, ti) => {
+                            html += `<div class="ml-12 mt-2 text-sm"><span class="text-green-700 font-bold">${task.action}</span> <span class="text-blue-600 font-bold">${task.object}</span></div>\n`;
+                            if (task.steps) {
+                                task.steps.forEach((step, si) => {
+                                    html += `<div class="ml-16 text-xs text-gray-600">${si + 1}. ${step}</div>\n`;
+                                });
+                            }
+                        });
+                    }
+                });
+            });
+        });
+
+        document.getElementById('structuredOutput').innerHTML = html;
+    }
+
+    function generateFlowchart(data) {
+        let mermaid = 'graph TD\n';
+        mermaid += '    Start([Start]) --> P1\n';
+        
+        data.phases.forEach((phase, pi) => {
+            const phaseId = `P${pi + 1}`;
+            mermaid += `    ${phaseId}[${phase.phase_name}]\n`;
+            
+            phase.milestones.forEach((milestone, mi) => {
+                const milestoneId = `M${pi + 1}_${mi + 1}`;
+                mermaid += `    ${phaseId} --> ${milestoneId}[${milestone.milestone_name}]\n`;
+                
+                milestone.jobs.forEach((job, ji) => {
+                    const jobId = `J${pi + 1}_${mi + 1}_${ji + 1}`;
+                    mermaid += `    ${milestoneId} --> ${jobId}[${job.job_name}]\n`;
+                });
+            });
+        });
+        
+        mermaid += '    J1_1_1 --> End([End])\n';
+
+        document.getElementById('flowchartDiagram').textContent = mermaid;
+        mermaid.run();
+    }
+
+    function generateEntityDiagram(data) {
+        if (!data.objects || data.objects.length === 0) {
+            document.getElementById('entityDiagram').textContent = 'graph LR\n    A[No objects extracted]';
+            mermaid.run();
+            return;
+        }
+
+        let mermaid = 'erDiagram\n';
+        
+        data.objects.forEach((obj, i) => {
+            const objName = obj.name.replace(/\s+/g, '_');
+            mermaid += `    ${objName} {\n`;
+            mermaid += `        string ${obj.type}\n`;
+            mermaid += `        string description\n`;
+            mermaid += `    }\n`;
+        });
+
+        // Add relationships based on data flows
+        if (data.data_flows) {
+            data.data_flows.forEach(flow => {
+                const from = flow.from.replace(/\s+/g, '_');
+                const to = flow.to.replace(/\s+/g, '_');
+                mermaid += `    ${from} ||--o{ ${to} : "${flow.data}"\n`;
+            });
+        }
+
+        document.getElementById('entityDiagram').textContent = mermaid;
+        mermaid.run();
+    }
+
+    function generateDataFlowDiagram(data) {
+        if (!data.data_flows || data.data_flows.length === 0) {
+            document.getElementById('dataflowDiagram').textContent = 'graph LR\n    A[No data flows extracted]';
+            mermaid.run();
+            return;
+        }
+
+        let mermaid = 'graph LR\n';
+        
+        data.data_flows.forEach((flow, i) => {
+            const from = flow.from.replace(/\s+/g, '_');
+            const to = flow.to.replace(/\s+/g, '_');
+            mermaid += `    ${from} -->|${flow.data}| ${to}\n`;
+        });
+
+        document.getElementById('dataflowDiagram').textContent = mermaid;
+        mermaid.run();
+    }
+
+    function showTab(tabName) {
+        // Hide all tabs
+        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
+        document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+
+        // Show selected tab
+        document.getElementById(`${tabName}Content`).classList.remove('hidden');
+        document.getElementById(`${tabName}Tab`).classList.add('active');
+
+        // Re-render Mermaid diagrams when tab is shown
+        if (tabName !== 'structure' && tabName !== 'json') {
+            mermaid.run();
+        }
+    }
+
+    function downloadJSON() {
+        if (!extractedData) return;
+        
+        const dataStr = JSON.stringify(extractedData, null, 2);
+        const blob = new Blob([dataStr], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `compass_${extractedData.pathway_name.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+    }
+</script>
+
+</body>
+</html>
